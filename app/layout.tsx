@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Tabbit | Animated 3D Personal Portfolio",
+  title: "Ibrahim | Animated 3D Personal Portfolio",
   description: "High-performance creative portfolio featuring Next.js 16, Three.js, React Three Fiber, GSAP, and Framer Motion.",
 };
 

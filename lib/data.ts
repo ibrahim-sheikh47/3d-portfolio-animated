@@ -1,10 +1,9 @@
 export interface Skill {
   name: string;
-  category: "Frontend" | "Backend" | "3D & Creative" | "Tools";
-  level: number; // percentage
   icon: string;
+  category: string;
+  level: number;
 }
-
 export interface Project {
   id: string;
   title: string;
@@ -23,17 +22,39 @@ export interface Experience {
   description: string[];
 }
 
+
+// "level" is a rough proficiency estimate — the CV doesn't give numeric
+// scores, so tweak these to whatever feels honest to you.
 export const skillsData: Skill[] = [
-  { name: "Next.js 16 / React", category: "Frontend", level: 95, icon: "⚡" },
-  { name: "TypeScript", category: "Frontend", level: 90, icon: "📘" },
-  { name: "Tailwind CSS", category: "Frontend", level: 95, icon: "🎨" },
-  { name: "Three.js / React Three Fiber", category: "3D & Creative", level: 85, icon: "📐" },
-  { name: "Framer Motion", category: "3D & Creative", level: 90, icon: "🍿" },
-  { name: "GSAP / ScrollTrigger", category: "3D & Creative", level: 85, icon: "⏳" },
-  { name: "Node.js", category: "Backend", level: 80, icon: "🟢" },
-  { name: "GraphQL / REST APIs", category: "Backend", level: 85, icon: "📡" },
-  { name: "Git / GitHub", category: "Tools", level: 90, icon: "🐙" },
-  { name: "Docker", category: "Tools", level: 75, icon: "🐳" },
+  // Frontend
+  { name: "React.js", icon: "⚛️", category: "Frontend", level: 92 },
+  { name: "Next.js", icon: "▲", category: "Frontend", level: 90 },
+  { name: "React Native", icon: "📱", category: "Frontend", level: 85 },
+  { name: "JavaScript (ES6+)", icon: "🟨", category: "Frontend", level: 90 },
+
+  // Backend & Database
+  { name: "Node.js", icon: "🟢", category: "Backend", level: 90 },
+  { name: "Express.js", icon: "🚂", category: "Backend", level: 88 },
+  { name: "MongoDB", icon: "🍃", category: "Backend", level: 85 },
+  { name: "Firebase", icon: "🔥", category: "Backend", level: 87 },
+  { name: "PostgreSQL", icon: "🐘", category: "Backend", level: 78 },
+
+  // CMS
+  { name: "Payload CMS", icon: "📝", category: "CMS", level: 80 },
+
+  // Third-Party Integrations
+  { name: "Stripe & Tap", icon: "💳", category: "Payments", level: 85 },
+  { name: "SendGrid API", icon: "📧", category: "Integrations", level: 80 },
+  { name: "Cloudflare R2", icon: "☁️", category: "Integrations", level: 82 },
+  { name: "Google Cloud Console", icon: "🔗", category: "Integrations", level: 80 },
+
+  // Server Operations & Tools
+  { name: "PM2 & SSH", icon: "🖥️", category: "Server Ops", level: 82 },
+  { name: "Git & GitHub", icon: "🔧", category: "Server Ops", level: 90 },
+
+  // UI/UX & Styling
+  { name: "Tailwind CSS", icon: "🎨", category: "UI/UX", level: 92 },
+  { name: "Framer Motion", icon: "🎞️", category: "UI/UX", level: 85 },
 ];
 
 export const projectsData: Project[] = [

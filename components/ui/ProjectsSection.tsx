@@ -39,18 +39,18 @@ function ProjectCard({ project }: { project: Project }) {
         transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         transition: "transform 0.1s ease-out",
       }}
-      className="interactive relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/30 backdrop-blur-md hover:border-emerald-500/30 transition-colors duration-300 group"
+      className="interactive relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/30 backdrop-blur-md hover:border-emerald-500/30 transition-colors duration-300 group h-full flex flex-col"
     >
       {/* Dynamic Glow Overlay */}
       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-emerald-500/5 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       {/* Decorative procedural image placeholder */}
-      <div 
-        className="h-48 w-full bg-gradient-to-br from-zinc-850 to-zinc-950 flex items-center justify-center relative border-b border-white/5 overflow-hidden"
+      <div
+        className="h-48 w-full bg-gradient-to-br from-zinc-850 to-zinc-950 flex items-center justify-center relative border-b border-white/5 overflow-hidden flex-shrink-0"
         style={{ transform: "translateZ(10px)" }}
       >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-500/10 via-transparent to-transparent" />
-        <span 
+        <span
           className="text-6xl group-hover:scale-125 transition-transform duration-500 ease-out select-none"
           style={{ transform: "translateZ(25px)" }}
         >
@@ -58,16 +58,16 @@ function ProjectCard({ project }: { project: Project }) {
         </span>
       </div>
 
-      <div className="p-6 space-y-4" style={{ transform: "translateZ(20px)" }}>
-        <h3 className="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">
+      <div className="p-6 space-y-4 flex-1 flex flex-col" style={{ transform: "translateZ(20px)" }}>
+        <h3 className="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors flex-shrink-0">
           {project.title}
         </h3>
-        
-        <p className="text-zinc-400 text-sm leading-relaxed min-h-[60px]">
+
+        <p className="text-zinc-400 text-sm leading-relaxed flex-1">
           {project.description}
         </p>
 
-        <div className="flex flex-wrap gap-2 pt-2">
+        <div className="flex flex-wrap gap-2 pt-2 flex-shrink-0 min-h-[28px]">
           {project.tags.map((tag) => (
             <span
               key={tag}
@@ -78,7 +78,7 @@ function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-white/5">
+        <div className="flex items-center justify-between pt-4 border-t border-white/5 flex-shrink-0">
           <a
             href={project.githubUrl}
             target="_blank"
@@ -150,7 +150,7 @@ export function ProjectsSection() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {projectsData.map((project) => (
-            <motion.div key={project.id} variants={itemVariants}>
+            <motion.div key={project.id} variants={itemVariants} className="flex">
               <ProjectCard project={project} />
             </motion.div>
           ))}

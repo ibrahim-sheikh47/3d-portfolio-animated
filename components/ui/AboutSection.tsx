@@ -22,22 +22,30 @@ export function AboutSection() {
           </div>
 
           <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
-            Bridging the Gap Between <span className="text-pink-500">Art</span> & <span className="text-blue-500">Code</span>
+            Bridging <span className="text-pink-500">Frontend</span> &{" "}
+            <span className="text-blue-500">Backend</span>
           </h2>
 
           <p className="text-zinc-400 leading-relaxed text-base md:text-lg">
-            I am a specialized frontend engineer passionate about high-fidelity visual web designs. With expertise in Next.js, WebGL, and custom shaders, I construct immersive digital landscapes that tell captivating brand stories.
+            I'm a MERN stack developer with 3 years of experience shipping web and mobile
+            products end-to-end — React and Next.js on the frontend, Node.js and Express on
+            the backend, backed by MongoDB and Firebase.
           </p>
 
           <p className="text-zinc-400 leading-relaxed text-base md:text-lg">
-            By combining procedural generation, mathematical logic, and robust programming principles, I make sure visual splendor never sacrifices extreme frame-rates or accessible, responsive performance.
+            I take products past the demo stage too: secure REST APIs, Stripe and Tap payment
+            integrations, Cloudflare R2 media storage, and Linux servers kept running with
+            PM2 and SSH.
           </p>
         </motion.div>
 
         {/* This div leaves space on the right for the floating 3D Blob rendered in CanvasRoot */}
         <div className="h-[300px] md:h-[500px] flex items-center justify-center">
           <div className="relative w-72 h-72 rounded-full border border-white/5 bg-zinc-900/20 backdrop-blur-sm flex items-center justify-center">
-            <div className="absolute inset-0 rounded-full border-2 border-dashed border-pink-500/20 animate-spin" style={{ animationDuration: "25s" }} />
+            <div
+              className="absolute inset-0 rounded-full border-2 border-dashed border-pink-500/20 animate-spin"
+              style={{ animationDuration: "25s" }}
+            />
             <p className="text-xs text-zinc-500 uppercase tracking-widest text-center max-w-[180px] leading-relaxed">
               Active procedural Canvas Blob render on side view
             </p>

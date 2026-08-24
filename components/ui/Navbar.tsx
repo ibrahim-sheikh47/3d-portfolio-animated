@@ -26,7 +26,7 @@ export function Navbar() {
         className="text-white font-bold text-xl tracking-wider uppercase cursor-pointer"
         onClick={() => handleNavClick("hero")}
       >
-        Tabbit<span className="text-blue-500">.</span>
+        Ibrahim<span className="text-blue-500">.</span>
       </motion.div>
 
       <nav className="hidden md:flex space-x-1 items-center bg-zinc-900/50 rounded-full border border-white/10 p-1">

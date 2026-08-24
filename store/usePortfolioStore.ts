@@ -14,6 +14,6 @@ export const usePortfolioStore = create<PortfolioState>((set) => ({
   setActiveSection: (section) => set({ activeSection: section }),
   mousePosition: { x: 0, y: 0 },
   setMousePosition: (x, y) => set({ mousePosition: { x, y } }),
-  isReducedMotion: false,
+  isReducedMotion: true,
   setReducedMotion: (reduced) => set({ isReducedMotion: reduced }),
 }));

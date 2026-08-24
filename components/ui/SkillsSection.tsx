@@ -15,7 +15,7 @@ function SkillCard({ skill }: { skill: Skill }) {
     const rect = card.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
-    
+
     // Calculate normalized cursor position relative to card center [-0.5, 0.5]
     const mouseX = (e.clientX - rect.left) / width - 0.5;
     const mouseY = (e.clientY - rect.top) / height - 0.5;
@@ -43,7 +43,7 @@ function SkillCard({ skill }: { skill: Skill }) {
       className="interactive relative p-6 rounded-xl border border-white/10 bg-zinc-900/40 backdrop-blur-md hover:border-blue-500/30 transition-colors duration-300 group"
     >
       {/* Gloss reflection overlay */}
-      <div 
+      <div
         className="absolute inset-0 rounded-xl bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"
         style={{ transform: "translateZ(20px)" }}
       />
@@ -116,7 +116,8 @@ export function SkillsSection() {
             Comprehensive <span className="text-blue-500">Expertise</span>
           </h2>
           <p className="text-zinc-400 max-w-2xl text-sm md:text-base">
-            Hover over the skill cards below to interact with their 3D tilt layouts. These cards reflect active spatial tilting computations mapped onto client-side cursor projections.
+            The tools I reach for daily — across frontend, backend, and everything needed to
+            get a product from database to deployment. Hover a card to see it tilt.
           </p>
         </div>
 

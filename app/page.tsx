@@ -18,61 +18,68 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Dynamic import of the entire <Canvas> tree with ssr: false and an animated fallback loader
-const CanvasRoot = dynamic(
-  () => import("@/components/canvas/CanvasRoot"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="fixed inset-0 bg-[#09090b] z-50 flex flex-col items-center justify-center">
-        <div className="relative w-24 h-24 flex items-center justify-center">
-          {/* Animated SVG Loader representing 3D vertices/constellations */}
-          <svg className="w-full h-full animate-spin text-blue-500" viewBox="0 0 100 100">
-            <circle
-              cx="50"
-              cy="50"
-              r="40"
-              stroke="currentColor"
-              strokeWidth="4"
-              strokeDasharray="80 120"
-              fill="none"
-              strokeLinecap="round"
-            />
-            <circle
-              cx="50"
-              cy="50"
-              r="25"
-              stroke="#ec4899"
-              strokeWidth="3"
-              strokeDasharray="40 60"
-              fill="none"
-              strokeLinecap="round"
-              className="animate-pulse"
-              style={{ animationDirection: "reverse", animationDuration: "1.5s" }}
-            />
-          </svg>
-          <div className="absolute text-white font-bold text-xs tracking-widest uppercase">
-            3D PORTFOLIO
-          </div>
+const CanvasRoot = dynamic(() => import("@/components/canvas/CanvasRoot"), {
+  ssr: false,
+  loading: () => (
+    <div className="fixed inset-0 bg-[#09090b] z-50 flex flex-col items-center justify-center">
+      <div className="relative w-24 h-24 flex items-center justify-center">
+        {/* Animated SVG Loader representing 3D vertices/constellations */}
+        <svg
+          className="w-full h-full animate-spin text-blue-500"
+          viewBox="0 0 100 100"
+        >
+          <circle
+            cx="50"
+            cy="50"
+            r="40"
+            stroke="currentColor"
+            strokeWidth="4"
+            strokeDasharray="80 120"
+            fill="none"
+            strokeLinecap="round"
+          />
+          <circle
+            cx="50"
+            cy="50"
+            r="25"
+            stroke="#ec4899"
+            strokeWidth="3"
+            strokeDasharray="40 60"
+            fill="none"
+            strokeLinecap="round"
+            className="animate-pulse"
+            style={{ animationDirection: "reverse", animationDuration: "1.5s" }}
+          />
+        </svg>
+        <div className="absolute text-white font-bold text-xs tracking-widest uppercase">
+          3D PORTFOLIO
         </div>
-        <p className="text-zinc-500 text-xs tracking-wider mt-6 animate-pulse uppercase">
-          Initializing WebGL Context...
-        </p>
       </div>
-    ),
-  }
-);
+      <p className="text-zinc-500 text-xs tracking-wider mt-6 animate-pulse uppercase">
+        Initializing WebGL Context...
+      </p>
+    </div>
+  ),
+});
 
 export default function Home() {
   // Initialize mouse tracker
   useMousePosition();
-  
+
   const setActiveSection = usePortfolioStore((state) => state.setActiveSection);
   const isReducedMotion = usePortfolioStore((state) => state.isReducedMotion);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Use Intersection Observer to seamlessly update current section in Zustand store
   useEffect(() => {
-    const sections = ["hero", "about", "skills", "projects", "experience", "contact"];
+    const sections = [
+      "hero",
+      "about",
+      "skills",
+      "projects",
+      "experience",
+      "contact",
+    ];
     const observers = sections.map((sectionId) => {
       const element = document.getElementById(sectionId);
       if (!element) return null;
@@ -89,7 +96,7 @@ export default function Home() {
           root: null,
           rootMargin: "-45% 0px -45% 0px", // triggers when section occupies the sweet spot of viewport
           threshold: 0,
-        }
+        },
       );
 
       observer.observe(element);
@@ -114,24 +121,26 @@ export default function Home() {
     // Timeline scroll sequencing example: fade & shift section text content
     const ctx = gsap.context(() => {
       // Create animations for section title entries
-      ["about", "skills", "projects", "experience", "contact"].forEach((section) => {
-        gsap.fromTo(
-          `#${section} h2`,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: `#${section}`,
-              start: "top 80%",
-              end: "top 50%",
-              toggleActions: "play none none reverse",
+      ["about", "skills", "projects", "experience", "contact"].forEach(
+        (section) => {
+          gsap.fromTo(
+            `#${section} h2`,
+            { opacity: 0, y: 50 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: `#${section}`,
+                start: "top 80%",
+                end: "top 50%",
+                toggleActions: "play none none reverse",
+              },
             },
-          }
-        );
-      });
+          );
+        },
+      );
 
       // Experience Timeline reveal sequencing
       gsap.fromTo(
@@ -148,7 +157,7 @@ export default function Home() {
             start: "top 70%",
             toggleActions: "play none none reverse",
           },
-        }
+        },
       );
     }, containerRef);
 
@@ -178,7 +187,8 @@ export default function Home() {
 
       {/* Footer copyright */}
       <footer className="relative z-10 border-t border-white/5 py-8 text-center text-xs text-zinc-600 tracking-widest uppercase bg-zinc-950/60 backdrop-blur-md">
-        © {new Date().getFullYear()} Tabbit. Built with Next.js 16, TS, R3F & Framer Motion.
+        © {new Date().getFullYear()} Ibrahim. Built with Next.js 16, TS, R3F &
+        Framer Motion.
       </footer>
     </main>
   );

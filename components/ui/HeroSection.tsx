@@ -43,21 +43,25 @@ export function HeroSection() {
           variants={itemVariants}
           className="text-blue-500 uppercase tracking-widest text-sm font-bold mb-3"
         >
-          Creative Developer / 3D Engineer
+          MERN Stack Developer
         </motion.p>
-        
+
         <motion.h1
           variants={itemVariants}
           className="text-5xl md:text-8xl font-black text-white tracking-tight leading-none mb-6"
         >
-          HI, I'M <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-pink-500">TABBIT</span>
+          HI, I'M{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-pink-500">
+            IBRAHIM SHEIKH
+          </span>
         </motion.h1>
 
         <motion.p
           variants={itemVariants}
           className="text-lg md:text-2xl text-zinc-400 font-medium max-w-2xl mb-8 leading-relaxed"
         >
-          I craft interactive 3D web experiences using modern web technologies. I balance aesthetic design with high-performance execution.
+          I build full-stack web and mobile products with React, Next.js, and Node.js —
+          wiring up secure payments, live backends, and clean UI from database to deployment.
         </motion.p>
 
         <motion.div variants={itemVariants} className="pointer-events-auto">
