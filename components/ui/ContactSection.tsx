@@ -1,23 +1,52 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Send, CheckCircle2 } from "lucide-react";
+import emailjs from "@emailjs/browser";
 
 export function ContactSection() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [formState, setFormState] = useState({ name: "", email: "", message: "" });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API request
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormState({ name: "", email: "", message: "" });
-    }, 1500);
+
+    emailjs
+      .send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          from_name: formState.name,
+          from_email: formState.email,
+          message: formState.message,
+          title: "Portfolio Contact",
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      )
+      .then(
+        () => {
+          setIsSubmitting(false);
+          setIsSubmitted(true);
+          setFormState({ name: "", email: "", message: "" });
+        },
+        (error) => {
+          setIsSubmitting(false);
+          console.error("EmailJS Error:", error);
+          alert("Ahh, something went wrong. Please try again.");
+        }
+      );
   };
 
   return (
@@ -43,11 +72,9 @@ export function ContactSection() {
           <div className="space-y-3 pt-4 text-zinc-400 text-sm">
             <p className="flex items-center space-x-3">
               <span className="text-blue-500 font-bold">📩 Email:</span>
-              <a href="mailto:hello@example.com" className="hover:text-blue-400 transition-colors">hello@example.com</a>
-            </p>
-            <p className="flex items-center space-x-3">
-              <span className="text-blue-500 font-bold">📍 Location:</span>
-              <span>San Francisco, CA / Remote</span>
+              <a href="mailto:ibrahimxdev7@gmail.com" className="hover:text-blue-400 transition-colors">
+                ibrahimxdev7@gmail.com
+              </a>
             </p>
           </div>
         </div>
@@ -76,7 +103,7 @@ export function ContactSection() {
                 </button>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-xs uppercase tracking-widest text-zinc-500 font-bold">
                     Your Name
@@ -84,11 +111,12 @@ export function ContactSection() {
                   <input
                     type="text"
                     id="name"
+                    name="name"
                     required
                     value={formState.name}
-                    onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 bg-zinc-950/60 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors duration-200"
-                    placeholder="John Doe"
+                    placeholder="What's your good name?"
                   />
                 </div>
 
@@ -99,11 +127,12 @@ export function ContactSection() {
                   <input
                     type="email"
                     id="email"
+                    name="email"
                     required
                     value={formState.email}
-                    onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 bg-zinc-950/60 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors duration-200"
-                    placeholder="john@example.com"
+                    placeholder="What's your web address?"
                   />
                 </div>
 
@@ -113,19 +142,20 @@ export function ContactSection() {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     required
                     rows={4}
                     value={formState.message}
-                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 bg-zinc-950/60 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors duration-200 resize-none"
-                    placeholder="Let's discuss details..."
+                    placeholder="What you want to say?"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="interactive w-full flex items-center justify-center space-x-3 bg-blue-600 hover:bg-blue-500 text-white py-3.5 rounded-lg font-semibold shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 transition-all disabled:opacity-55"
+                  className="w-full flex items-center justify-center space-x-3 bg-blue-600 hover:bg-blue-500 text-white py-3.5 rounded-lg font-semibold shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 transition-all disabled:opacity-55"
                 >
                   <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
                   {!isSubmitting && <Send className="w-4 h-4" />}

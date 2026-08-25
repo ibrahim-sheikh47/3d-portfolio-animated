@@ -38,7 +38,7 @@ export function ExperienceSection() {
             Work <span className="text-indigo-500">Experience</span>
           </h2>
           <p className="text-zinc-400 max-w-2xl text-sm md:text-base">
-            A chronological timeline of my achievements, milestones, and professional development as a modern creative developer.
+            A chronological timeline of my professional journey as a MERN Stack Developer.
           </p>
         </div>
 
@@ -62,7 +62,7 @@ export function ExperienceSection() {
                 <span className="text-xs font-bold uppercase tracking-widest text-indigo-400">
                   {exp.period}
                 </span>
-                
+
                 <h3 className="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors">
                   {exp.role} <span className="text-zinc-500 font-medium">@</span> {exp.company}
                 </h3>

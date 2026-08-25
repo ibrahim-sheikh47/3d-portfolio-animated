@@ -30,7 +30,7 @@ export const skillsData: Skill[] = [
   { name: "React.js", icon: "⚛️", category: "Frontend", level: 92 },
   { name: "Next.js", icon: "▲", category: "Frontend", level: 90 },
   { name: "React Native", icon: "📱", category: "Frontend", level: 85 },
-  { name: "JavaScript (ES6+)", icon: "🟨", category: "Frontend", level: 90 },
+  { name: "JavaScript/TypeScript", icon: "🟨", category: "Frontend", level: 90 },
 
   // Backend & Database
   { name: "Node.js", icon: "🟢", category: "Backend", level: 90 },
@@ -49,7 +49,8 @@ export const skillsData: Skill[] = [
   { name: "Google Cloud Console", icon: "🔗", category: "Integrations", level: 80 },
 
   // Server Operations & Tools
-  { name: "PM2 & SSH", icon: "🖥️", category: "Server Ops", level: 82 },
+  { name: "SSH", icon: "🔑", category: "Server Ops", level: 80 },
+  { name: "PM2", icon: "🖥️", category: "Server Ops", level: 82 },
   { name: "Git & GitHub", icon: "🔧", category: "Server Ops", level: 90 },
 
   // UI/UX & Styling
@@ -60,65 +61,48 @@ export const skillsData: Skill[] = [
 export const projectsData: Project[] = [
   {
     id: "p1",
-    title: "Cosmic Sandbox",
-    description: "An interactive, fully procedural 3D stellar simulator and physics engine built directly in the browser.",
-    tags: ["React Three Fiber", "GLSL Shaders", "Zustand", "TypeScript"],
-    image: "🌌",
-    liveUrl: "https://example.com/cosmic",
-    githubUrl: "https://github.com/example/cosmic",
+    title: "Smart Attendance Tracking System",
+    description: "QR-based attendance system with admin dashboard and mobile app for real-time tracking.",
+    tags: ["React", "React Native", "Firebase", "Firestore"],
+    image: "📱",
+    liveUrl: "https://example.com/attendance",
+    githubUrl: "https://github.com/example/attendance",
   },
   {
     id: "p2",
-    title: "Nebula Dashboard",
-    description: "High-performance data visualization interface showcasing real-time metrics with custom GSAP fluid animations.",
-    tags: ["Next.js", "Tailwind CSS", "GSAP", "Chart.js"],
-    image: "📈",
-    liveUrl: "https://example.com/nebula",
-    githubUrl: "https://github.com/example/nebula",
-  },
-  {
-    id: "p3",
-    title: "Quantum E-Commerce",
-    description: "A frictionless 3D storefront rendering custom product geometries with advanced materials and lightning fast checkout.",
-    tags: ["Next.js App Router", "Three.js", "Tailwind CSS", "Stripe"],
-    image: "🛒",
-    liveUrl: "https://example.com/quantum",
-    githubUrl: "https://github.com/example/quantum",
+    title: "My Wealth Translator",
+    description: "Fintech co-pilot with amortization calculator, retirement readiness modeling, and real-term income calculations.",
+    tags: ["Next.js", "Tailwind CSS", "Material UI", "Firebase", "Stripe"],
+    image: "💰",
+    liveUrl: "https://example.com/wealth",
+    githubUrl: "https://github.com/example/wealth",
   },
 ];
 
 export const experienceData: Experience[] = [
   {
     id: "e1",
-    role: "Senior Creative Developer",
-    company: "Dimension Interactive",
-    period: "2024 - Present",
+    role: "MERN Stack Developer",
+    company: "Go-Globe (Remote)",
+    period: "Jan 2026 - Present",
     description: [
-      "Lead the production of highly responsive React Three Fiber web experiences.",
-      "Architected Next.js micro-frontends with integrated real-time dynamic shaders.",
-      "Optimized web applications resulting in a 40% increase in rendering frame-rates."
+      "Developed and maintained full-stack company features across both frontend and backend environments.",
+      "Integrated Cloudflare R2 to handle video storage and delivery, optimizing streaming workflows and reducing asset-hosting overhead.",
+      "Built international payment processing logic by integrating Tap and Stripe payment gateways.",
+      "Programmed communication systems using the SendGrid API and connected automated scheduling modules with the Google Calendar API through Google Cloud Console.",
+      "Managed remote backend infrastructure using SSH protocols and configured PM2 to monitor live processes and maintain runtime application uptime."
     ],
   },
   {
     id: "e2",
-    role: "Frontend & 3D Engineer",
-    company: "Aether Systems",
-    period: "2022 - 2024",
+    role: "MERN Stack Developer",
+    company: "Bitforce Solutions (Lahore, Remote)",
+    period: "2023 - Dec 2025",
     description: [
-      "Implemented elaborate scroll-sequenced animations using GSAP and ScrollTrigger.",
-      "Engineered clean state-management flows using Zustand, syncing DOM scroll triggers with Canvas nodes.",
-      "Pioneered procedural generation components to replace heavy asset load budgets, lowering bundle sizes by 80%."
-    ],
-  },
-  {
-    id: "e3",
-    role: "Full Stack Web Developer",
-    company: "Launchpad Labs",
-    period: "2020 - 2022",
-    description: [
-      "Built dynamic, interactive React components combined with robust Node.js backend services.",
-      "Engineered flexible custom database schemas and high-throughput GraphQL APIs.",
-      "Implemented rigid accessibility policies ensuring WCAG AA standard compliance across multiple web platforms."
+      "Built end-to-end web and mobile applications using React and React Native, designing and connecting REST APIs with backend services.",
+      "Developed serverless backend logic using Firebase Cloud Functions and structured Firebase Firestore databases with strict security rules.",
+      "Refactored full-stack application data flows and asset management in Firebase Cloud Storage, improving overall performance and reducing latency by 20%.",
+      "Built functional landing pages and web apps with React and Tailwind CSS, managing deployments and live hosting setups on Vercel and Netlify."
     ],
   },
 ];

@@ -7,10 +7,10 @@ const navItems = ["hero", "about", "skills", "projects", "experience", "contact"
 
 export function Navbar() {
   const activeSection = usePortfolioStore((state) => state.activeSection);
-  const isReducedMotion = usePortfolioStore((state) => state.isReducedMotion);
-  const setReducedMotion = usePortfolioStore((state) => state.setReducedMotion);
+  const setActiveSection = usePortfolioStore((state) => state.setActiveSection);
 
   const handleNavClick = (section: string) => {
+    setActiveSection(section); // Update active section in store
     const el = document.getElementById(section);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
@@ -29,7 +29,7 @@ export function Navbar() {
         Ibrahim<span className="text-blue-500">.</span>
       </motion.div>
 
-      <nav className="hidden md:flex space-x-1 items-center bg-zinc-900/50 rounded-full border border-white/10 p-1">
+      <nav className="hidden md:flex space-x-1 items-center bg-zinc-900/50 rounded-full border border-white/10 p-1 absolute left-1/2 transform -translate-x-1/2">
         {navItems.map((item) => (
           <button
             key={item}
@@ -48,14 +48,7 @@ export function Navbar() {
         ))}
       </nav>
 
-      <div className="flex items-center space-x-4">
-        <button
-          onClick={() => setReducedMotion(!isReducedMotion)}
-          className="text-xs px-3 py-1.5 rounded-md border border-white/10 text-zinc-400 hover:text-white hover:border-white/20 transition-all"
-        >
-          {isReducedMotion ? "Enable 3D Motion" : "Reduced Motion"}
-        </button>
-      </div>
+      <div className="w-[100px]"></div>
     </header>
   );
 }
