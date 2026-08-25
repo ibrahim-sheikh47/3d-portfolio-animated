@@ -18,20 +18,25 @@ export function HeroObject() {
     vertexShader: HeroShaderMaterial.vertexShader,
     fragmentShader: HeroShaderMaterial.fragmentShader,
   };
-  
-  // Inject theme color variables (accent blue: #3b82f6, rim magenta/pink: #ec4899)
-  shaderArgs.uniforms.uColor.value = new THREE.Color("#1e3a8a"); // deep blue
-  shaderArgs.uniforms.uRimColor.value = new THREE.Color("#3b82f6"); // bright blue
+
+  // ✅ FIX: Use type assertion to bypass the null type restriction
+  // This allows assigning Color objects to uniforms that are typed as null
+  (shaderArgs.uniforms.uColor.value as any) = new THREE.Color("#1e3a8a"); // deep blue
+  (shaderArgs.uniforms.uRimColor.value as any) = new THREE.Color("#3b82f6"); // bright blue
 
   useFrame((state, delta) => {
     if (materialRef.current) {
       // Update time uniform for distortion wave speed
-      materialRef.current.uniforms.uTime.value = state.clock.getElapsedTime();
-      
+      if (materialRef.current.uniforms.uTime) {
+        materialRef.current.uniforms.uTime.value = state.clock.getElapsedTime();
+      }
+
       // Control distortion amount. Set to zero or low when reduced motion is preferred
-      materialRef.current.uniforms.uDistortion.value = isReducedMotion 
-        ? 0.1 
-        : 1.0 * distsortMultiplier;
+      if (materialRef.current.uniforms.uDistortion) {
+        materialRef.current.uniforms.uDistortion.value = isReducedMotion
+          ? 0.1
+          : 1.0 * (distsortMultiplier || 1);
+      }
     }
 
     if (meshRef.current) {
@@ -40,11 +45,19 @@ export function HeroObject() {
       meshRef.current.rotation.x += delta * 0.1;
 
       // Parallax rotation based on normalized mouse
-      if (!isReducedMotion) {
-        const targetRotX = mousePosition.y * 0.5;
-        const targetRotY = mousePosition.x * 0.5;
-        meshRef.current.rotation.x = THREE.MathUtils.lerp(meshRef.current.rotation.x, targetRotX, delta * 3);
-        meshRef.current.rotation.y = THREE.MathUtils.lerp(meshRef.current.rotation.y, targetRotY, delta * 3);
+      if (!isReducedMotion && mousePosition) {
+        const targetRotX = (mousePosition.y || 0) * 0.5;
+        const targetRotY = (mousePosition.x || 0) * 0.5;
+        meshRef.current.rotation.x = THREE.MathUtils.lerp(
+          meshRef.current.rotation.x,
+          targetRotX,
+          delta * 3
+        );
+        meshRef.current.rotation.y = THREE.MathUtils.lerp(
+          meshRef.current.rotation.y,
+          targetRotY,
+          delta * 3
+        );
       }
     }
   });

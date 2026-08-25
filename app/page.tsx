@@ -7,44 +7,53 @@ import { CustomCursor } from "@/components/ui/CustomCursor";
 import { usePortfolioStore } from "@/store/usePortfolioStore";
 import { useMousePosition } from "@/hooks/useMousePosition";
 
-// FIX 1: Lazy load 3D Canvas
+// FIX 1: Lazy load 3D Canvas with SSR disabled
 const CanvasRoot = dynamic(
-  () => import("@/components/canvas/CanvasRoot").then((mod) => mod.default || mod),
+  () =>
+    import("@/components/canvas/CanvasRoot").then((mod) => mod.default || mod),
   {
-    ssr: false,
-    loading: () => null
-  }
+    ssr: false, // ✅ Prevents hydration mismatch
+    loading: () => null,
+  },
 );
 
 // FIX 2: Lazy load sections - USE ONLY NAMED EXPORTS
 const HeroSection = dynamic(
   () => import("@/components/ui/HeroSection").then((mod) => mod.HeroSection),
-  { ssr: true }
+  { ssr: true },
 );
 
 const AboutSection = dynamic(
   () => import("@/components/ui/AboutSection").then((mod) => mod.AboutSection),
-  { ssr: false }
+  { ssr: false },
 );
 
 const SkillsSection = dynamic(
-  () => import("@/components/ui/SkillsSection").then((mod) => mod.SkillsSection),
-  { ssr: false }
+  () =>
+    import("@/components/ui/SkillsSection").then((mod) => mod.SkillsSection),
+  { ssr: false },
 );
 
 const ProjectsSection = dynamic(
-  () => import("@/components/ui/ProjectsSection").then((mod) => mod.ProjectsSection),
-  { ssr: false }
+  () =>
+    import("@/components/ui/ProjectsSection").then(
+      (mod) => mod.ProjectsSection,
+    ),
+  { ssr: false },
 );
 
 const ExperienceSection = dynamic(
-  () => import("@/components/ui/ExperienceSection").then((mod) => mod.ExperienceSection),
-  { ssr: false }
+  () =>
+    import("@/components/ui/ExperienceSection").then(
+      (mod) => mod.ExperienceSection,
+    ),
+  { ssr: false },
 );
 
 const ContactSection = dynamic(
-  () => import("@/components/ui/ContactSection").then((mod) => mod.ContactSection),
-  { ssr: false }
+  () =>
+    import("@/components/ui/ContactSection").then((mod) => mod.ContactSection),
+  { ssr: false },
 );
 
 let gsapLoaded = false;
@@ -58,7 +67,14 @@ export default function Home() {
   const isScrollingRef = useRef(false);
 
   useEffect(() => {
-    const sections = ["hero", "about", "skills", "projects", "experience", "contact"];
+    const sections = [
+      "hero",
+      "about",
+      "skills",
+      "projects",
+      "experience",
+      "contact",
+    ];
     let timeoutId: NodeJS.Timeout;
 
     const updateActiveSection = () => {
@@ -134,24 +150,26 @@ export default function Home() {
         gsapLoaded = true;
 
         const ctx = gsap.gsap.context(() => {
-          ["about", "skills", "projects", "experience", "contact"].forEach((section) => {
-            gsap.gsap.fromTo(
-              `#${section} h2`,
-              { opacity: 0, y: 50 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power3.out",
-                scrollTrigger: {
-                  trigger: `#${section}`,
-                  start: "top 80%",
-                  end: "top 50%",
-                  toggleActions: "play none none reverse",
+          ["about", "skills", "projects", "experience", "contact"].forEach(
+            (section) => {
+              gsap.gsap.fromTo(
+                `#${section} h2`,
+                { opacity: 0, y: 50 },
+                {
+                  opacity: 1,
+                  y: 0,
+                  duration: 1,
+                  ease: "power3.out",
+                  scrollTrigger: {
+                    trigger: `#${section}`,
+                    start: "top 80%",
+                    end: "top 50%",
+                    toggleActions: "play none none reverse",
+                  },
                 },
-              }
-            );
-          });
+              );
+            },
+          );
 
           gsap.gsap.fromTo(
             "#experience .relative.pl-8",
@@ -167,7 +185,7 @@ export default function Home() {
                 start: "top 70%",
                 toggleActions: "play none none reverse",
               },
-            }
+            },
           );
         }, containerRef);
 
@@ -183,10 +201,9 @@ export default function Home() {
 
   return (
     <main ref={containerRef} className="relative min-h-screen">
-      {typeof window !== "undefined" && <CanvasRoot />}
+      <CanvasRoot /> {/* ✅ Cleaner - ssr: false handles everything */}
       <CustomCursor />
       <Navbar />
-
       <div className="relative z-10">
         <HeroSection />
         <AboutSection />
@@ -195,9 +212,9 @@ export default function Home() {
         <ExperienceSection />
         <ContactSection />
       </div>
-
       <footer className="relative z-10 border-t border-white/5 py-8 text-center text-xs text-zinc-600 tracking-widest uppercase bg-zinc-950/60 backdrop-blur-md">
-        © {new Date().getFullYear()} Ibrahim. Built with Next.js 16, TS, R3F & Framer Motion.
+        © {new Date().getFullYear()} Ibrahim. Built with Next.js 16, TS, R3F &
+        Framer Motion.
       </footer>
     </main>
   );
