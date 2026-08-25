@@ -16,34 +16,34 @@ const CanvasRoot = dynamic(
   }
 );
 
-// FIX 3: Lazy load sections - CORRECTED
+// FIX 2: Lazy load sections - USE ONLY NAMED EXPORTS
 const HeroSection = dynamic(
-  () => import("@/components/ui/HeroSection").then((mod) => mod.HeroSection || mod.default || mod),
+  () => import("@/components/ui/HeroSection").then((mod) => mod.HeroSection),
   { ssr: true }
 );
 
 const AboutSection = dynamic(
-  () => import("@/components/ui/AboutSection").then((mod) => mod.AboutSection || mod.default || mod),
+  () => import("@/components/ui/AboutSection").then((mod) => mod.AboutSection),
   { ssr: false }
 );
 
 const SkillsSection = dynamic(
-  () => import("@/components/ui/SkillsSection").then((mod) => mod.SkillsSection || mod.default || mod),
+  () => import("@/components/ui/SkillsSection").then((mod) => mod.SkillsSection),
   { ssr: false }
 );
 
 const ProjectsSection = dynamic(
-  () => import("@/components/ui/ProjectsSection").then((mod) => mod.ProjectsSection || mod.default || mod),
+  () => import("@/components/ui/ProjectsSection").then((mod) => mod.ProjectsSection),
   { ssr: false }
 );
 
 const ExperienceSection = dynamic(
-  () => import("@/components/ui/ExperienceSection").then((mod) => mod.ExperienceSection || mod.default || mod),
+  () => import("@/components/ui/ExperienceSection").then((mod) => mod.ExperienceSection),
   { ssr: false }
 );
 
 const ContactSection = dynamic(
-  () => import("@/components/ui/ContactSection").then((mod) => mod.ContactSection || mod.default || mod),
+  () => import("@/components/ui/ContactSection").then((mod) => mod.ContactSection),
   { ssr: false }
 );
 
