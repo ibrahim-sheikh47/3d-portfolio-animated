@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { Suspense } from "react";
 import { CameraRig } from "./CameraRig";
 import { Lights } from "./Lights";
@@ -13,18 +13,31 @@ import { usePortfolioStore } from "@/store/usePortfolioStore";
 
 function MainScene() {
   const activeSection = usePortfolioStore((state) => state.activeSection);
+  const viewport = useThree((state) => state.viewport);
+  const size = useThree((state) => state.size);
+
+  const isMobile = size.width < 768;
+
+  // Place the hero orb right behind the profile pic
+  const heroPosition: [number, number, number] = isMobile
+    ? [0, viewport.height * 0.28, -1]
+    : [viewport.width * 0.33, 0.1, -1];
+  const heroScale = isMobile ? 0.5 : 0.68;
 
   return (
     <>
       <Lights />
       <SceneParticles />
-      
-      {/* Conditionally render or position elements based on section to keep scene clean */}
-      {activeSection === "hero" && <HeroObject />}
+
+      {activeSection === "hero" && (
+        <group position={heroPosition} scale={heroScale}>
+          <HeroObject />
+        </group>
+      )}
       {activeSection === "about" && <AboutBlob />}
       {activeSection === "skills" && <SkillsScene />}
       {activeSection === "projects" && <ProjectsScene />}
-      
+
       <CameraRig />
     </>
   );
@@ -35,7 +48,7 @@ export default function CanvasRoot() {
     <div className="fixed inset-0 -z-10 w-full h-full bg-[#09090b] pointer-events-none">
       <Canvas
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-        dpr={[1, 2]} // Performance: dpr capping
+        dpr={[1, 2]}
         camera={{ position: [0, 0, 5], fov: 45 }}
       >
         <Suspense fallback={null}>

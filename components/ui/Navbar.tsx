@@ -1,21 +1,32 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { usePortfolioStore } from "@/store/usePortfolioStore";
+import { useCallback, useState } from "react";
 
-const navItems = ["hero", "about", "skills", "projects", "experience", "contact"];
+const navItems = [
+  "hero",
+  "about",
+  "skills",
+  "projects",
+  "experience",
+  "contact",
+];
 
 export function Navbar() {
-  const activeSection = usePortfolioStore((state) => state.activeSection);
-  const setActiveSection = usePortfolioStore((state) => state.setActiveSection);
+  const [hoveredSection, setHoveredSection] = useState<string | null>(null);
 
-  const handleNavClick = (section: string) => {
-    setActiveSection(section); // Update active section in store
+  const handleNavClick = useCallback((section: string) => {
     const el = document.getElementById(section);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      const yOffset = -80; // Account for navbar height
+      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+      window.scrollTo({
+        top: y,
+        behavior: "smooth",
+      });
     }
-  };
+  }, []);
 
   return (
     <header className="fixed top-0 left-0 w-full z-40 bg-[#09090b]/40 backdrop-blur-md border-b border-white/5 py-4 px-6 md:px-12 flex justify-between items-center">
@@ -23,22 +34,27 @@ export function Navbar() {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-white font-bold text-xl tracking-wider uppercase cursor-pointer"
-        onClick={() => handleNavClick("hero")}
+        className="text-white font-bold text-xl tracking-wider uppercase cursor-default"
       >
         Ibrahim<span className="text-blue-500">.</span>
       </motion.div>
 
-      <nav className="hidden md:flex space-x-1 items-center bg-zinc-900/50 rounded-full border border-white/10 p-1 absolute left-1/2 transform -translate-x-1/2">
+      <nav
+        onMouseLeave={() => setHoveredSection(null)}
+        className="hidden md:flex space-x-16 items-center  p-1 absolute left-1/2 transform -translate-x-1/2 "
+      >
         {navItems.map((item) => (
           <button
             key={item}
             onClick={() => handleNavClick(item)}
-            className="relative px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors duration-200 text-zinc-400 hover:text-white"
+            onMouseEnter={() => setHoveredSection(item)}
+            className={`relative px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors duration-200 ${
+              hoveredSection === item ? "text-white" : "text-zinc-400"
+            }`}
           >
-            {activeSection === item && (
+            {hoveredSection === item && (
               <motion.div
-                layoutId="activeTab"
+                layoutId="hoverTab"
                 className="absolute inset-0 bg-blue-600/20 border border-blue-500/40 rounded-full"
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
               />

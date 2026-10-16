@@ -62,21 +62,7 @@ function SkillCard({ skill }: { skill: Skill }) {
         </div>
       </div>
 
-      <div className="mt-6 space-y-2" style={{ transform: "translateZ(15px)" }}>
-        <div className="flex justify-between items-center text-xs">
-          <span className="text-zinc-500 uppercase tracking-wider">Proficiency</span>
-          <span className="text-blue-400 font-bold">{skill.level}%</span>
-        </div>
-        <div className="w-full h-1.5 bg-zinc-950 rounded-full overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: `${skill.level}%` }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"
-          />
-        </div>
-      </div>
+     
     </motion.div>
   );
 }
